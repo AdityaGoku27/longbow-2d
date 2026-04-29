@@ -16,10 +16,15 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private bool isGrounded;
 
+    public Transform playerVisual;
+
+    private Animator animator;
+
     private void Awake()
     {
         controls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
+        animator = playerVisual.GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -41,6 +46,18 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
         }
+
+        if (moveInput.x > 0)
+        {
+            playerVisual.localScale = new Vector3(1.7f,1.1f,1f);
+        }
+        else if (moveInput.x < 0)
+        {
+            playerVisual.localScale = new Vector3(-1.7f, 1.1f, 1f);
+        }
+
+        animator.SetFloat("Speed", Mathf.Abs(moveInput.x));
+        animator.SetBool("IsGrounded", isGrounded);
     }
 
     private void FixedUpdate()

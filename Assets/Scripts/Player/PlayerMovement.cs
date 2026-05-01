@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-    public float jumpForce = 7f;
+    public float jumpForce = 12f;
 
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;

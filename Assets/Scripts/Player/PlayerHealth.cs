@@ -40,6 +40,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        GetComponent<PlayerRespawn>()?.Respawn();
+
         Debug.Log("Player Died");
+    }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
     }
 }

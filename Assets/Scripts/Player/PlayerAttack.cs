@@ -43,6 +43,7 @@ public class PlayerAttack : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("Attack");
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.swordSlash);
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 

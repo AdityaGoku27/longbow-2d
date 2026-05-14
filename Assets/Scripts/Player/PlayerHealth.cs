@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -7,10 +8,12 @@ public class PlayerHealth : MonoBehaviour
 
     public float invincibleDuration = 1f;
     private bool isInvincible = false;
+    public TextMeshProUGUI hpText;
 
     private void Start()
     {
         currentHealth = maxHealth;
+        UpdateHPUI();
     }
 
     public void TakeDamage(int damage)
@@ -21,6 +24,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         currentHealth -= damage;
+        SFXManager.Instance.PlaySFX(SFXManager.Instance.playerHurt);
+
+        UpdateHPUI();
 
         Debug.Log("Player took damage..");
 
@@ -29,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            GameManager.Instance.LoseLife();
         }
     }
 
@@ -38,15 +44,14 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
     }
 
-    private void Die()
-    {
-        GetComponent<PlayerRespawn>()?.Respawn();
-
-        Debug.Log("Player Died");
-    }
-
     public void ResetHealth()
     {
         currentHealth = maxHealth;
+        UpdateHPUI();
+    }
+
+    private void UpdateHPUI()
+    {
+        hpText.text = "HP - " + currentHealth;
     }
 }
